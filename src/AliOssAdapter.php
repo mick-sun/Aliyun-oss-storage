@@ -67,7 +67,7 @@ class AliOssAdapter extends AbstractAdapter
     protected $bucket;
 
     protected $endPoint;
-    
+
     protected $cdnDomain;
 
     protected $ssl;
@@ -359,6 +359,7 @@ class AliOssAdapter extends AbstractAdapter
                     $object['Type']         = $objectInfo->getType();
                     $object['Size']         = $objectInfo->getSize();
                     $object['StorageClass'] = $objectInfo->getStorageClass();
+                    $object['Header']       = $objectInfo->getHeader();
 
                     $result['objects'][] = $object;
                 }
@@ -549,7 +550,7 @@ class AliOssAdapter extends AbstractAdapter
             $this->logErr(__FUNCTION__, $e);
             return false;
         }
-        
+
         if ($acl == OssClient::OSS_ACL_TYPE_PUBLIC_READ ){
             $res['visibility'] = AdapterInterface::VISIBILITY_PUBLIC;
         }else{
@@ -602,13 +603,17 @@ class AliOssAdapter extends AbstractAdapter
             $result['timestamp'] = strtotime($object['LastModified']);
         }
 
+		    if (isset($object['Header'])) {
+			    $result['header'] = $object['Header'];
+		    }
+
         if (substr($result['path'], -1) === '/') {
             $result['type'] = 'dir';
             $result['path'] = rtrim($result['path'], '/');
 
             return $result;
         }
-        
+
         $result = array_merge($result, Util::map($object, static::$resultMap), ['type' => 'file']);
 
         return $result;

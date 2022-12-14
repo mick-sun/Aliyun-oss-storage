@@ -1,5 +1,5 @@
 {
-    "name": "jacobcyl/ali-oss-storage",
+    "name": "mick-sun/ali-oss-storage",
     "description": "aliyun oss filesystem storage for laravel 5+",
     "keywords": ["aliyun", "oss", "laravel", "filesystems", "storage"],
     "homepage": "http://jacobcyl.github.io/Aliyun-oss-storage/",
@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "aliyuncs/oss-sdk-php": "~2.0"
+        "mick-sun/oss-sdk-php": "~2.0"
     },
     "autoload": {
         "psr-4": {
